@@ -1,5 +1,9 @@
 '''
 Note:
+pip install -r requirements.txt
+
+OR
+
 pip install pycryptodome
 pip install eciespy
 '''
@@ -74,10 +78,13 @@ def keyDecrypt(filename, keyName):
         f.write(decContent)
     os.system('cls')
     print("Private Key Decryption Successful!\n")
-        
+
+
+os.system('cls')
 salt = b'\xeb\xd1\xc7G\xdc\xcc-R\xc5r\xecs*+b\xb8;s\xbf\x82\x91\xda\xb5\xe4\x0b\xd1\xa6}vq\xebD'
 
-if(Path('cloud').is_dir() == False):
+
+if(Path('cloud').is_dir() == False): #check if cloud file exists
     os.makedirs('cloud')
 
 
@@ -88,8 +95,7 @@ while True:
     print("\n")
 
     if userIn == "1":
-        passphrase = getpass("\nNew Passphrase: ")
-        print(passphrase) #testing delete later
+        passphrase = getpass("New Passphrase: ")
         if((len(passphrase) < 5) or (any(str.isdigit(x) for x in passphrase) == False) ): #password requirements
             os.system('cls')
             print("Passphrase needs to contain a number and be at least 5 characters long\n")
@@ -106,8 +112,7 @@ while True:
         encr.encryptf(filename)
 
     elif userIn == "2":
-        passphrase = getpass("\nPassphrase: ") #hide password on the screen
-        print(passphrase) #testing delete later
+        passphrase = getpass("Passphrase: ") #hide password on the screen
         filename = input("File to Decrypt (include \".enc\"): ")
         path = Path("cloud/"+filename)
         if(path.is_file() == False): #check if file exits
@@ -125,10 +130,10 @@ while True:
 
 
     elif userIn == "3":
-        perm = input("Warning! Naming a key the same as an existing one will overwrite it, type \"okay\" to proceed: ")
+        perm = input("Warning! Naming a key the same with overwrite the previous one, type \"okay\" to proceed: ")
         if(perm != "okay"):
             os.system('cls')
-            print("You did not want to confirm the generation of keys\n")
+            print("You decided not to generate the keys\n")
             continue
         keys = generate_key()
         privateKey = keys.secret
@@ -192,7 +197,7 @@ while True:
 
 
     elif userIn == "6":
-        filename = input("Name the File: ")
+        filename = input("File to Encrypt: ")
         message = input("Message you want to write: ")
         with open(filename,'wt') as f:
             f.write(message)
@@ -200,8 +205,13 @@ while True:
         print('Successfully Created File\n')
 
     elif userIn == "exit":
-        print("/n Application Close. Have a Good Day!")
+        print("Application Close. Have a Good Day!")
         break
+
+    else:
+        os.system('cls')
+        print('Input is not Valid\n')
+
 time.sleep(2)
 sys.exit()
 
